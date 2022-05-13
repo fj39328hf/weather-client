@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from "@angular/forms";
-import {map, Observable, startWith} from "rxjs";
+import {filter, map, Observable, startWith} from "rxjs";
 
 @Component({
   selector: 'app-city-input',
@@ -10,7 +10,7 @@ import {map, Observable, startWith} from "rxjs";
 export class CityInputComponent implements OnInit {
 
   control = new FormControl();
-  streets: string[] = ['city-one', 'city-two']
+  streets: string[] = []
   apiKey = '46beb04043c94408454319d7f2b20142';
   result = {};
   filteredStreets: Observable<string[]> | undefined;
@@ -19,23 +19,20 @@ export class CityInputComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.filteredStreets = this.control.valueChanges.pipe(
+    let a = this.control.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value)),
     );
+
+    this.filteredStreets = a
+    console.log(a);
+
   }
 
   private _filter(value: string): string[] {
-    const filterValue = this._normalizeValue(value);
-    console.log(value, filterValue)
     return this.getWeather(value)
-    // return ['1'];
-    // return this.streets.filter(street => this._normalizeValue(street).includes(filterValue));
   }
 
-  private _normalizeValue(value: string): string {
-    return value.toLowerCase().replace(/\s/g, '');
-  }
 
 
   httpGet(theUrl: string) {
@@ -47,14 +44,13 @@ export class CityInputComponent implements OnInit {
 
   getWeather(value: any) {
 
-    let url = `http://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=20&appid=${this.apiKey}`;
+    let url = `http://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=5&appid=${this.apiKey}`;
     let result = this.httpGet(url);
     let obj = JSON.parse(result)
-    let asdf: any[] = [];
-
+    let asdf: string[] = [];
     for (const [key, value] of Object.entries(obj)) {
       // @ts-ignore
-      asdf.push(value.name)
+      asdf.push(`${value.name}`)
     }
     return asdf
   }

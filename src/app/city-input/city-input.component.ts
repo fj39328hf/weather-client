@@ -19,20 +19,10 @@ export class CityInputComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let a = this.control.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value)),
+    this.filteredStreets = this.control.valueChanges.pipe(
+      map(value => this.getWeather(value)),
     );
-
-    this.filteredStreets = a
-    console.log(a);
-
   }
-
-  private _filter(value: string): string[] {
-    return this.getWeather(value)
-  }
-
 
 
   httpGet(theUrl: string) {
@@ -50,7 +40,7 @@ export class CityInputComponent implements OnInit {
     let asdf: string[] = [];
     for (const [key, value] of Object.entries(obj)) {
       // @ts-ignore
-      asdf.push(`${value.name}`)
+      asdf.push(`${value.name}-${value.country}`)
     }
     return asdf
   }

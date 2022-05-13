@@ -1,12 +1,19 @@
-<p>city-input works!</p>
-<input type="text" (input)="getWeather($event)">
+<!--<p>city-input works!</p>-->
+<!--<input type="text" (input)="getWeather($event)">-->
 
-<form>
+<form class="example-form">
   <input type="text"
-    [formControl]="control"
-         [matAutocomplete]="auto"
-  >
+         placeholder="Search for a street"
+         [formControl]="control"
+         [matAutocomplete]="auto">
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let street of filteredStreets | async" [value]="street">
+      {{street}}
+    </mat-option>
+  </mat-autocomplete>
 </form>
 
-{{control.value}}
-{{ result | json }}
+
+
+<!--{{control.value}}-->
+<!--{{ result | json }}-->

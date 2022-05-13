@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-city-input',
@@ -7,13 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CityInputComponent implements OnInit {
 
+  control = new FormControl();
+  cities: string[] = ['city-one', 'city-two']
   apiKey = '46beb04043c94408454319d7f2b20142';
-
   result = {};
   constructor() { }
 
   ngOnInit(): void {
   }
+
 
   httpGet(theUrl: string)
   {

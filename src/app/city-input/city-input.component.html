@@ -1,5 +1,12 @@
 <p>city-input works!</p>
 <input type="text" (input)="getWeather($event)">
 
+<form>
+  <input type="text"
+    [formControl]="control"
+         [matAutocomplete]="auto"
+  >
+</form>
 
+{{control.value}}
 {{ result | json }}

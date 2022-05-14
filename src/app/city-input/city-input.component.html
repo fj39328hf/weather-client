@@ -8,6 +8,7 @@
 
         <h2>Last time search</h2>
         <button (click)="getLastSearch()" *ngFor="let city of lastSearchCity">{{city.name}}</button>
+        <button (click)="getLocation()">Get by current location</button>
       </div>
 
       <div class="item">
@@ -38,17 +39,13 @@
     <br>
     <hr>
     <div class="result">
-<!--  "temp":       {{ result.main }}     -->
-<!--  "feels_like": {{ result.main }}-->
-<!--  "temp_min":  {{ result.main }}-->
-<!--  "temp_max":   {{ result.main }}-->
-<!--  "pressure":  {{ result.main }}-->
-<!--  "humidity": {{ result.main }}-->
       <span class="elem-results" *ngFor="let elem of result.main | keyvalue">{{ elem.key }}: {{ elem.value }}</span>
-<!--      <pre>-->
-<!---->
-<!--      {{ result.main | json }}-->
-<!--      </pre>-->
+
     </div>
   </div>
 </div>
+<pre>
+
+
+{{ result.name | json}}
+</pre>

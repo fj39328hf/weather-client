@@ -20,6 +20,26 @@ export class CityInputComponent implements OnInit {
   constructor() {
   }
 
+
+  getLocation() {
+    let parent = this;
+    navigator.geolocation.getCurrentPosition((position => {
+      console.log(position.coords)
+      parent.setCoordinates({
+        lat: position.coords.latitude,
+        lon: position.coords.longitude
+      })
+      parent.getWeather()
+      parent.control.setValue(parent.result.name)
+      CityInputComponent.updateWeatherLocalStorage({
+        name: parent.result.name,
+        country: parent.result.country,
+        lat: position.coords.latitude,
+        lon: position.coords.longitude
+      })
+    }));
+  }
+
   ngOnInit(): void {
     this.filteredStreets = this.control.valueChanges.pipe(
       map(value => this.getCities(value)),
@@ -36,10 +56,14 @@ export class CityInputComponent implements OnInit {
   getLastSearch() {
     this.control.setValue(this.lastSearchCity[0].name)
     this.setCoordinates(this.lastSearchCity[0])
+    this.getWeather()
   }
 
-  getWeather(event: any) {
-    event.preventDefault()
+  getWeather(event: any = null) {
+    if (event) {
+      event.preventDefault();
+    }
+
     let url = `https://api.openweathermap.org/data/2.5/weather?lat=${this.city.lat}&lon=${this.city.lon}&appid=${this.apiKey}`;
     let result = CityInputComponent.httpGet(url);
     CityInputComponent.updateWeatherLocalStorage(this.city);

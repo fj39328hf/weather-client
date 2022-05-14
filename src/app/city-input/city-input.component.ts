@@ -20,7 +20,7 @@ export class CityInputComponent implements OnInit {
 
   ngOnInit(): void {
     this.filteredStreets = this.control.valueChanges.pipe(
-      map(value => this.getWeather(value)),
+      map(value => this.getCities(value)),
     );
   }
 
@@ -32,7 +32,13 @@ export class CityInputComponent implements OnInit {
     return xmlHttp.responseText;
   }
 
-  getWeather(value: any) {
+  getWeather(lat: string, lon: string) {
+    let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${this.apiKey}`;
+    let result = this.httpGet(url);
+    this.result = JSON.parse(result)
+  }
+
+  getCities(value: any) {
 
     let url = `http://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=5&appid=${this.apiKey}`;
     let result = this.httpGet(url);

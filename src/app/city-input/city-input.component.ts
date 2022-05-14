@@ -7,6 +7,7 @@ import {filter, map, Observable, startWith} from "rxjs";
   templateUrl: './city-input.component.html',
   styleUrls: ['./city-input.component.scss']
 })
+
 export class CityInputComponent implements OnInit {
 
   control = new FormControl();
@@ -14,7 +15,7 @@ export class CityInputComponent implements OnInit {
   result = {};
   filteredStreets: Observable<any[]> | undefined;
   city: any = {};
-  lastSearchCity: any = {};
+  lastSearchCity: any = [];
 
   constructor() {
   }
@@ -24,20 +25,8 @@ export class CityInputComponent implements OnInit {
       map(value => this.getCities(value)),
     );
     // @ts-ignore
-    this.lastSearchCity = JSON.parse(localStorage.getItem('lastSearchCity'))
+    this.lastSearchCity = CityInputComponent.getWeatherLocalStorage()
 
-  }
-
-
-  private static httpGet(theUrl: string) {
-    let xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", theUrl, false); // false for synchronous request
-    xmlHttp.send(null);
-    return xmlHttp.responseText;
-  }
-
-  private static updateWeatherLocalStorage(city: any) {
-    localStorage.setItem("lastSearchCity", JSON.stringify([city]));
   }
 
   setCoordinates(city: any) {
@@ -47,7 +36,6 @@ export class CityInputComponent implements OnInit {
   getLastSearch() {
     this.control.setValue(this.lastSearchCity[0].name)
     this.setCoordinates(this.lastSearchCity[0])
-    localStorage.removeItem('lastSearchCity')
   }
 
   getWeather() {
@@ -73,6 +61,22 @@ export class CityInputComponent implements OnInit {
       })
     }
     return cities
+  }
+
+  private static httpGet(theUrl: string) {
+    let xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", theUrl, false); // false for synchronous request
+    xmlHttp.send(null);
+    return xmlHttp.responseText;
+  }
+
+  private static updateWeatherLocalStorage(city: any) {
+    localStorage.setItem("lastSearchCity", JSON.stringify([city]));
+  }
+
+  private static getWeatherLocalStorage() {
+    // @ts-ignore
+    return JSON.parse(localStorage.getItem('lastSearchCity'))
   }
 
 }

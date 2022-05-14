@@ -1,14 +1,16 @@
 <!--<p>city-input works!</p>-->
 <!--<input type="text" (input)="getWeather($event)">-->
+<!--(optionSelected)="setCoordinates2($event)"-->
 
 <form class="example-form">
   <input type="text"
          placeholder="Search for a street"
          [formControl]="control"
          [matAutocomplete]="auto">
-  <mat-autocomplete #auto="matAutocomplete">
+  <mat-autocomplete
+    #auto="matAutocomplete">
     <mat-option
-      (click)="getWeather(street.lon, street.lat)"
+      (onSelectionChange)="setCoordinates(street.lon, street.lat)"
       [ngStyle]="{ display : street === 'undefined' ? 'none' : '' }"
       *ngFor="let street of filteredStreets | async" [value]="street.name">
       city:  {{street.name}}
@@ -17,8 +19,9 @@
   </mat-autocomplete>
 </form>
 
-<!--<button (click)="getWeather()">get weather</button>-->
+<button (click)="getWeather()">get weather</button>
 
+<!--(click)="setCoordinates(street.lon, street.lat)"-->
 
 
 {{control.value}}

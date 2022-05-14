@@ -33,8 +33,16 @@ export class CityInputComponent implements OnInit {
     return xmlHttp.responseText;
   }
 
-  getWeather(lon:string, lat:string) {
-    let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${this.apiKey}`;
+  setCoordinates(lon:string, lat:string) {
+    this.lat=lat;
+    this.lon=lon;
+    // let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${this.apiKey}`;
+    // let result = this.httpGet(url);
+    // this.result = JSON.parse(result)
+  }
+
+  getWeather() {
+    let url = `https://api.openweathermap.org/data/2.5/weather?lat=${this.lat}&lon=${this.lon}&appid=${this.apiKey}`;
     let result = this.httpGet(url);
     this.result = JSON.parse(result)
   }

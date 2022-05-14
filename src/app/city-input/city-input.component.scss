@@ -44,5 +44,18 @@
     align-items: center;
     display: flex;
     min-height: 200px;
+    flex-wrap: wrap;
   }
+  .elem-results {
+    width: 33%;
+    background: #cee4ef;
+    padding: 12px 20px;
+    margin: 10px;
+    border-radius: 5px;
+  }
+}
+
+::ng-deep .cdk-overlay-pane {
+  /* Do you changes here */
+  min-width:300px;
 }

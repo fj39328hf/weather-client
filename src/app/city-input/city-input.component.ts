@@ -12,7 +12,7 @@ export class CityInputComponent implements OnInit {
 
   control = new FormControl();
   apiKey = '46beb04043c94408454319d7f2b20142';
-  result = {};
+  result: any = {};
   filteredStreets: Observable<any[]> | undefined;
   city: any = {};
   lastSearchCity: any = [];

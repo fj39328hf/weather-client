@@ -34,10 +34,21 @@
 
       </div>
     </div>
-
+    <br>
+    <br>
+    <hr>
     <div class="result">
-
-      {{ result | json }}
+<!--  "temp":       {{ result.main }}     -->
+<!--  "feels_like": {{ result.main }}-->
+<!--  "temp_min":  {{ result.main }}-->
+<!--  "temp_max":   {{ result.main }}-->
+<!--  "pressure":  {{ result.main }}-->
+<!--  "humidity": {{ result.main }}-->
+      <span class="elem-results" *ngFor="let elem of result.main | keyvalue">{{ elem.key }}: {{ elem.value }}</span>
+<!--      <pre>-->
+<!---->
+<!--      {{ result.main | json }}-->
+<!--      </pre>-->
     </div>
   </div>
 </div>

@@ -38,7 +38,6 @@ export class CityInputComponent implements OnInit {
 
   private static updateWeatherLocalStorage(city: any) {
     localStorage.setItem("lastSearchCity", JSON.stringify([city]));
-    console.log(localStorage.getItem('lastSearchCity'));
   }
 
   setCoordinates(city: any) {

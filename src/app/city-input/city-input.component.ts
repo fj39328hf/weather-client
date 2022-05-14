@@ -13,8 +13,8 @@ export class CityInputComponent implements OnInit {
   apiKey = '46beb04043c94408454319d7f2b20142';
   result = {};
   filteredStreets: Observable<any[]> | undefined;
-  lon: string = '';
-  lat: string = '';
+  city: any = {};
+  lastSearchCity: any = {};
 
   constructor() {
   }
@@ -23,34 +23,39 @@ export class CityInputComponent implements OnInit {
     this.filteredStreets = this.control.valueChanges.pipe(
       map(value => this.getCities(value)),
     );
+    // @ts-ignore
+    this.lastSearchCity = JSON.parse(localStorage.getItem('lastSearchCity'))
+    console.log(this.lastSearchCity)
   }
 
 
-  httpGet(theUrl: string) {
+  private static httpGet(theUrl: string) {
     let xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", theUrl, false); // false for synchronous request
     xmlHttp.send(null);
     return xmlHttp.responseText;
   }
 
-  setCoordinates(lon:string, lat:string) {
-    this.lat=lat;
-    this.lon=lon;
-    // let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${this.apiKey}`;
-    // let result = this.httpGet(url);
-    // this.result = JSON.parse(result)
+  private static updateWeatherLocalStorage(city: any) {
+    localStorage.setItem("lastSearchCity", JSON.stringify(city));
+    console.log(localStorage.getItem('lastSearchCity'));
+  }
+
+  setCoordinates(city: any) {
+    this.city = city;
   }
 
   getWeather() {
-    let url = `https://api.openweathermap.org/data/2.5/weather?lat=${this.lat}&lon=${this.lon}&appid=${this.apiKey}`;
-    let result = this.httpGet(url);
+    let url = `https://api.openweathermap.org/data/2.5/weather?lat=${this.city.lat}&lon=${this.city.lon}&appid=${this.apiKey}`;
+    let result = CityInputComponent.httpGet(url);
+    CityInputComponent.updateWeatherLocalStorage(this.city);
     this.result = JSON.parse(result)
   }
 
   getCities(value: any) {
 
     let url = `http://api.openweathermap.org/geo/1.0/direct?q=${value}&limit=5&appid=${this.apiKey}`;
-    let result = this.httpGet(url);
+    let result = CityInputComponent.httpGet(url);
     let obj = JSON.parse(result)
     let cities = [];
     for (value of Object.entries(obj)) {

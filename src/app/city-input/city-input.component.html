@@ -1,5 +1,8 @@
 
+<h3>Last time search</h3>
+<button (click)="getLastSearch()" *ngFor="let city of lastSearchCity">{{city.name}}</button>
 
+<h3>new search</h3>
 <form class="example-form">
   <input type="text"
          placeholder="Search for a country"

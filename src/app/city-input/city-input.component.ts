@@ -25,7 +25,7 @@ export class CityInputComponent implements OnInit {
     );
     // @ts-ignore
     this.lastSearchCity = JSON.parse(localStorage.getItem('lastSearchCity'))
-    console.log(this.lastSearchCity)
+
   }
 
 
@@ -37,12 +37,18 @@ export class CityInputComponent implements OnInit {
   }
 
   private static updateWeatherLocalStorage(city: any) {
-    localStorage.setItem("lastSearchCity", JSON.stringify(city));
+    localStorage.setItem("lastSearchCity", JSON.stringify([city]));
     console.log(localStorage.getItem('lastSearchCity'));
   }
 
   setCoordinates(city: any) {
     this.city = city;
+  }
+
+  getLastSearch() {
+    this.control.setValue(this.lastSearchCity[0].name)
+    this.setCoordinates(this.lastSearchCity[0])
+    localStorage.removeItem('lastSearchCity')
   }
 
   getWeather() {

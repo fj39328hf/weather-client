@@ -1,28 +1,33 @@
+<div class="main">
 
-<h3>Last time search</h3>
-<button (click)="getLastSearch()" *ngFor="let city of lastSearchCity">{{city.name}}</button>
+  <div class="">
 
-<h3>new search</h3>
-<form class="example-form">
-  <input type="text"
-         placeholder="Search for a city"
-         [formControl]="control"
-         [matAutocomplete]="auto">
-  <mat-autocomplete
-    #auto="matAutocomplete">
-    <mat-option
-      (onSelectionChange)="setCoordinates(city)"
-      [ngStyle]="{ display : city === 'undefined' ? 'none' : '' }"
-      *ngFor="let city of filteredStreets | async" [value]="city.name">
-      city:  {{city.name}}
-      country: {{city.country}}
-    </mat-option>
-  </mat-autocomplete>
-</form>
+    <h3>Last time search</h3>
+    <button (click)="getLastSearch()" *ngFor="let city of lastSearchCity">{{city.name}}</button>
 
-<button (click)="getWeather()">get weather</button>
+    <h3>new search</h3>
+    <form class="example-form">
+      <input type="text"
+             placeholder="Search for a city"
+             [formControl]="control"
+             [matAutocomplete]="auto">
+      <mat-autocomplete
+        #auto="matAutocomplete">
+        <mat-option
+          (onSelectionChange)="setCoordinates(city)"
+          [ngStyle]="{ display : city === 'undefined' ? 'none' : '' }"
+          *ngFor="let city of filteredStreets | async" [value]="city.name">
+          city:  {{city.name}}
+          country: {{city.country}}
+        </mat-option>
+      </mat-autocomplete>
+    </form>
 
+    <button (click)="getWeather()">Get weather</button>
+  </div>
 
+  <div class="">
 
-{{control.value}}
-{{ result | json }}
+    {{ result | json }}
+  </div>
+</div>

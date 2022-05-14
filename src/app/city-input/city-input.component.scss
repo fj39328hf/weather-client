@@ -15,14 +15,34 @@
   justify-content: space-around;
   align-items: center;
 
-  div {
-    //max-width: 50%;
-    //min-width: 50%;
+  .search-panel {
     justify-content: center;
     background: #e5f1f5;
     border-radius: 5px;
-    width: 300px;
     min-height: 200px;
     padding: 20px;
+    width: 500px;
+  }
+  .item {
+    height: 50px;
+    padding: 10px;
+    width: 50%;
+    form {
+      min-width: 300px;
+    }
+  }
+  .search {
+    display: flex;
+    /* height: 200px; */
+    align-items: baseline;
+  }
+
+  .result {
+    padding: 20px;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    min-height: 200px;
   }
 }

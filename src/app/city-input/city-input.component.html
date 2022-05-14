@@ -1,33 +1,43 @@
 <div class="main">
 
-  <div class="">
+  <div class="search-panel">
 
-    <h2>Last time search</h2>
-    <button (click)="getLastSearch()" *ngFor="let city of lastSearchCity">{{city.name}}</button>
+    <div class="search">
 
-    <br>
-    <br>
-    <h2>New search</h2>
-    <form class="example-form">
-      <input type="text"
-             placeholder="Search for a city"
-             [formControl]="control"
-             [matAutocomplete]="auto">
-      <mat-autocomplete
-        #auto="matAutocomplete">
-        <mat-option
-          (onSelectionChange)="setCoordinates(city)"
-          [ngStyle]="{ display : city === 'undefined' ? 'none' : '' }"
-          *ngFor="let city of filteredStreets | async" [value]="city.name">
-          city:  {{city.name}}
-          country: {{city.country}}
-        </mat-option>
-      </mat-autocomplete>
-    </form>
+      <div class="item">
 
-    <button (click)="getWeather()">Get weather</button>
+        <h2>Last time search</h2>
+        <button (click)="getLastSearch()" *ngFor="let city of lastSearchCity">{{city.name}}</button>
+      </div>
 
-    <br>
-    {{ result | json }}
+      <div class="item">
+
+        <h2>New search</h2>
+
+        <form class="example-form">
+          <input type="text"
+                 placeholder="Search for a city"
+                 [formControl]="control"
+                 [matAutocomplete]="auto">
+          <mat-autocomplete
+            #auto="matAutocomplete">
+            <mat-option
+              (onSelectionChange)="setCoordinates(city)"
+              [ngStyle]="{ display : city === 'undefined' ? 'none' : '' }"
+              *ngFor="let city of filteredStreets | async" [value]="city.name">
+              city:  {{city.name}}
+              country: {{city.country}}
+            </mat-option>
+          </mat-autocomplete>
+          <button (click)="getWeather($event)">Get weather</button>
+        </form>
+
+      </div>
+    </div>
+
+    <div class="result">
+
+      {{ result | json }}
+    </div>
   </div>
 </div>

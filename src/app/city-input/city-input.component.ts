@@ -38,7 +38,8 @@ export class CityInputComponent implements OnInit {
     this.setCoordinates(this.lastSearchCity[0])
   }
 
-  getWeather() {
+  getWeather(event: any) {
+    event.preventDefault()
     let url = `https://api.openweathermap.org/data/2.5/weather?lat=${this.city.lat}&lon=${this.city.lon}&appid=${this.apiKey}`;
     let result = CityInputComponent.httpGet(url);
     CityInputComponent.updateWeatherLocalStorage(this.city);

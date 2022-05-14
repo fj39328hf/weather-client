@@ -13,7 +13,9 @@ export class CityInputComponent implements OnInit {
   streets: string[] = []
   apiKey = '46beb04043c94408454319d7f2b20142';
   result = {};
-  filteredStreets: Observable<string[]> | undefined;
+  filteredStreets: Observable<any[]> | undefined;
+  lon: string = '';
+  lat: string = '';
 
   constructor() {
   }
@@ -32,7 +34,10 @@ export class CityInputComponent implements OnInit {
     return xmlHttp.responseText;
   }
 
-  getWeather(lat: string, lon: string) {
+  getWeather(lon:string, lat:string) {
+
+    console.log('work', this.control.value.replace(new RegExp(",.*"), ''))
+    // let url = `https://api.openweathermap.org/data/2.5/weather?lat=${this.lat}&lon=${this.lon}&appid=${this.apiKey}`;
     let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${this.apiKey}`;
     let result = this.httpGet(url);
     this.result = JSON.parse(result)
@@ -44,10 +49,23 @@ export class CityInputComponent implements OnInit {
     let result = this.httpGet(url);
     let obj = JSON.parse(result)
     let asdf: string[] = [];
-    for (const [key, value] of Object.entries(obj)) {
+    for (value of Object.entries(obj)) {
+      let v = value[1];
+      let name = v.name;
+      let country = v.country;
+      let lat = v.lat;
+      let lon = v.lon;
+      // console.log()
+      // asdf.push(`${value.name}, ${value.country}, ${value.lat}`)
       // @ts-ignore
-      asdf.push(`${value.name}-${value.country}`)
+      asdf.push({
+        name: name,
+        country: country,
+        lat: lat,
+        lon: lon
+      })
     }
+    // console.log(asdf)
     return asdf
   }
 

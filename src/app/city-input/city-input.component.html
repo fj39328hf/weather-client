@@ -8,12 +8,15 @@
          [matAutocomplete]="auto">
   <mat-autocomplete #auto="matAutocomplete">
     <mat-option
+      (click)="getWeather(street.lon, street.lat)"
       [ngStyle]="{ display : street === 'undefined' ? 'none' : '' }"
-      *ngFor="let street of filteredStreets | async" [value]="street">
-        {{street}}
+      *ngFor="let street of filteredStreets | async" [value]="street.name">
+        {{street.name}}
     </mat-option>
   </mat-autocomplete>
 </form>
+
+<!--<button (click)="getWeather()">get weather</button>-->
 
 
 

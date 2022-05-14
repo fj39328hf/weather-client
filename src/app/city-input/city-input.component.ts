@@ -76,7 +76,8 @@ export class CityInputComponent implements OnInit {
 
   private static getWeatherLocalStorage() {
     // @ts-ignore
-    return JSON.parse(localStorage.getItem('lastSearchCity'))
+    let ls = JSON.parse(localStorage.getItem('lastSearchCity'));
+    return ls === null ? [] : ls;
   }
 
 }

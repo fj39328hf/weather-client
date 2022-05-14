@@ -2,10 +2,12 @@
 
   <div class="">
 
-    <h3>Last time search</h3>
+    <h2>Last time search</h2>
     <button (click)="getLastSearch()" *ngFor="let city of lastSearchCity">{{city.name}}</button>
 
-    <h3>new search</h3>
+    <br>
+    <br>
+    <h2>New search</h2>
     <form class="example-form">
       <input type="text"
              placeholder="Search for a city"
@@ -24,10 +26,8 @@
     </form>
 
     <button (click)="getWeather()">Get weather</button>
-  </div>
 
-  <div class="">
-
+    <br>
     {{ result | json }}
   </div>
 </div>
